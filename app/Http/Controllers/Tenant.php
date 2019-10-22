@@ -42,11 +42,6 @@ class Tenant extends Controller
     {
         $validation = $this->validator($request->all());
         if ($validation->fails()){
-
-
-
-
-
             return Redirect::back()->withErrors($validation);
         }
 

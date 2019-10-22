@@ -13,39 +13,19 @@
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
+                color: black;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
             }
 
-            .full-height {
-                height: 100vh;
-            }
-
             .flex-center {
                 align-items: center;
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
+                margin-top: 50px;
             }
 
             .links > a {
@@ -58,34 +38,72 @@
                 text-transform: uppercase;
             }
 
-            .m-b-md {
-                margin-bottom: 30px;
+
+            .menu{
+                background-color: #6BB2EB;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 10vh;
             }
+
+            h1{
+                color: white;
+                margin: 0;
+            }
+
+            .btn{
+                background-color: #1d68a7;
+                color: white;
+                border: #1d68a7 solid 1px;
+                border-radius: 7px;
+            }
+
+            #hostname{
+                border-radius: 5px;
+                border: #1d68a7 solid 1px;
+            }
+
+            p{
+                margin-top: 50px;
+                font-weight: bold;
+                color: #1d68a7;
+            }
+
+            ul{
+                margin: 0;
+            }
+
         </style>
     </head>
     <body>
-        <h1>Painel de administração</h1>
-        <form action="/" method="post">
-            @csrf
-            @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div style="color: red;">{{$error}}</div>
-                @endforeach
-            @endif
-            <label for="hostname">Endereço do site</label>
-            <input name="hostname" id="hostname"/>
-            <button type="submit">criar condominio</button>
-        </form>
+        <div class="menu">
+            <h1>Painel de Administração</h1>
+        </div>
 
-        @isset ($hostnames)
-            @if ($hostnames)
-                <p>condominios</p>
-                <ul>
-                    @foreach ($hostnames as $hostname)
-                        <li>{{ $hostname->fqdn }}</li>
+        <div class="flex-center">
+            <form action="/" method="post">
+                @csrf
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div style="color: red; text-align: center; margin-bottom: 20px">{{$error}}</div>
                     @endforeach
-                </ul>
-            @endif
-        @endisset
+                @endif
+                <label for="hostname">Endereço do novo site:</label>
+                <input name="hostname" id="hostname"/>
+                <button type="submit" class="btn">CRIAR CONDOMÍNIO</button>
+            </form>
+
+            @isset ($hostnames)
+                @if ($hostnames)
+                    <p>Condomínios já existentes:</p>
+                    <ul>
+                        @foreach ($hostnames as $hostname)
+                            <li>{{ $hostname->fqdn }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+            @endisset
+        </div>
     </body>
 </html>
